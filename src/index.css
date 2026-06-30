@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;650;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-slate-955: #0a0c10;
+  --color-slate-950: #0c0e12;
+  --color-slate-900: #12151a;
+  --color-slate-855: #16191f;
+  --color-slate-850: #222630;
+  --color-slate-750: #2f3543;
+  --color-blue-450: #a3b8cc;
+  --color-blue-650: #4c657e;
+  --color-zinc-450: #8ba2b5;
+  
+  /* Reflect blue classes directly to professional Sky Blue (Azure) scale */
+  --color-blue-50: #edf4fa;
+  --color-blue-100: #cfe3f1;
+  --color-blue-200: #aecfe7;
+  --color-blue-300: #8fb6d8;
+  --color-blue-400: #779ebf;
+  --color-blue-500: #5f86a6;
+  --color-blue-600: #4b6f8e;
+  --color-blue-700: #395878;
+  --color-blue-800: #243a5e;
+  --color-blue-900: #17263e;
+  --color-blue-950: #0e192b;
+
+  /* Reflect cyan and indigo classes to metallic colors for absolute consistency */
+  --color-cyan-900: #1e293b;
+  --color-indigo-400: #cbd5e1;
+  --color-sky-300: #e2e8f0;
+  --color-sky-400: #94a3b8;
+  --color-sky-450: #64748b;
+}
+
+/* Custom scrollbar utility for clean system drawers and lists */
+.scrollable-feed::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollable-feed::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollable-feed::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+.scrollable-feed::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+@keyframes cloud-shift {
+  0% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    transform: translate(5%, -5%) scale(1.1) rotate(5deg);
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  100% {
+    transform: translate(-5%, 5%) scale(0.9) rotate(-5deg);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
