@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  Shield, 
-  Database, 
-  ExternalLink, 
-  Github, 
-  Eye, 
-  Lock, 
-  FileText, 
-  UserCheck, 
-  CheckCircle2, 
-  Grid, 
+import {
+  Shield,
+  Database,
+  ExternalLink,
+  Github,
+  Eye,
+  Lock,
+  FileText,
+  UserCheck,
+  CheckCircle2,
+  Grid,
   Smartphone,
   Sparkles,
   Camera,
@@ -27,6 +27,7 @@ import {
 import { PROJECTS, PERSONAL_INFO } from '../data';
 import { Project } from '../types';
 import ProjectDetailModal from './ProjectDetailModal';
+import PageNavigation from './PageNavigation';
 
 export default function Portfolio() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -46,16 +47,16 @@ export default function Portfolio() {
       <div className="absolute top-0 inset-x-0 flex justify-center items-start">
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
         <div className="absolute top-0 w-2/3 max-w-md h-[1.5px] bg-gradient-to-r from-transparent via-blue-700/40 to-transparent blur-[1px]" />
-        
+
         {/* Center glowing element */}
         <div className="absolute top-[-3px] w-12 h-1.5 bg-blue-500 rounded-full blur-[3px] opacity-60" />
         <div className="absolute top-[-1px] w-4 h-0.5 bg-blue-300 rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Heading matching specification */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.15 }}
@@ -100,7 +101,7 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Premium Filter Navigation Tabs */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: false, amount: 0.15 }}
@@ -111,11 +112,10 @@ export default function Portfolio() {
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`relative px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
-                activeFilter === filter
-                  ? 'text-white'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50/80'
-              }`}
+              className={`relative px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${activeFilter === filter
+                ? 'text-white'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50/80'
+                }`}
             >
               {activeFilter === filter && (
                 <motion.div
@@ -138,7 +138,7 @@ export default function Portfolio() {
         {/* Inject Certification for Achievement or All filter */}
         <AnimatePresence>
           {(activeFilter === 'all' || activeFilter === 'Achievement') && PERSONAL_INFO.certifications && PERSONAL_INFO.certifications.length > 0 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -160,12 +160,12 @@ export default function Portfolio() {
                 </svg>
               </div>
               <div className="absolute -bottom-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-0 group-hover/cert:opacity-100 transition-opacity duration-700 pointer-events-none bg-blue-500/10" />
-              
+
               {/* Modern Left-Aligned Header */}
               <div className="flex flex-col items-start mb-10 relative z-10 w-full">
                 <div className="flex items-center gap-4 mb-2">
                   <div className="w-12 h-12 rounded-2xl bg-blue-50/80 border border-blue-100/50 flex items-center justify-center shadow-sm">
-                     <Award className="w-6 h-6 text-blue-600" />
+                    <Award className="w-6 h-6 text-blue-600" />
                   </div>
                   <h3 className="font-sans font-black text-3xl sm:text-4xl text-[#2D3748] tracking-tight">
                     Certification
@@ -187,9 +187,9 @@ export default function Portfolio() {
                     {cert.logo && (
                       <div className="w-16 h-16 sm:w-24 sm:h-24 flex-shrink-0 rounded-2xl border border-slate-200/80 bg-white shadow-sm flex items-center justify-center p-3 sm:p-4 group-hover:shadow-[0_8px_20px_rgba(30,58,138,0.1)] transition-all duration-500 z-10 relative">
                         <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none rounded-2xl" />
-                        <img 
-                          src={cert.logo} 
-                          alt={cert.title} 
+                        <img
+                          src={cert.logo}
+                          alt={cert.title}
                           className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-out"
                         />
                       </div>
@@ -204,13 +204,13 @@ export default function Portfolio() {
                         <Award className="w-4 h-4 text-blue-500 flex-shrink-0" />
                         {cert.issuer}
                       </p>
-                      
+
                       {cert.description && (
                         <p className="text-slate-500 text-[13px] leading-relaxed mb-5 sm:mb-6 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
                           {cert.description}
                         </p>
                       )}
-                      
+
                       <div className="flex flex-wrap gap-2.5 mt-auto">
                         <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 border border-blue-100/50 text-[11px] font-bold tracking-wide uppercase">
                           {cert.field}
@@ -229,7 +229,7 @@ export default function Portfolio() {
         </AnimatePresence>
 
         {/* Portfolio Projects Grid */}
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto pb-12"
         >
           <AnimatePresence mode="popLayout">
@@ -247,12 +247,11 @@ export default function Portfolio() {
                 {/* PROJECT PHOTO PLACEHOLDER */}
                 <div className="relative h-56 bg-slate-100 flex items-center justify-center overflow-hidden border-b border-slate-200">
                   {project.image ? (
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-                        project.id === 'ctf-1st-place-2024' ? 'object-bottom' : project.id === 'ctf-top-8-2026' ? 'object-top' : ''
-                      }`}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${project.id === 'ctf-1st-place-2024' ? 'object-bottom' : project.id === 'ctf-top-8-2026' ? 'object-top' : ''
+                        }`}
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center text-slate-400 gap-2">
@@ -266,7 +265,7 @@ export default function Portfolio() {
 
                 {/* CARD DETAILS LAYOUT - MATCHING HIGH PRESTIGE SPECIFICATION */}
                 <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-6">
-                  
+
                   <div className="space-y-2.5">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="flex items-center gap-1.5 font-sans text-[10px] font-bold text-slate-700 uppercase tracking-widest bg-white border border-slate-200 px-3 py-1 rounded-full shadow-sm">
@@ -274,12 +273,12 @@ export default function Portfolio() {
                         {project.category}
                       </span>
                     </div>
-                    
+
                     {/* Clean, dominant heading based on mock blueprint */}
                     <h3 className="font-sans font-black text-2xl text-slate-900 group-hover:text-blue-700 transition-colors tracking-tight leading-tight">
                       {project.title}
                     </h3>
-                    
+
                     {/* Muted description */}
                     <p className="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-sans">
                       {project.shortDescription}
@@ -323,6 +322,10 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
 
+        <PageNavigation
+          prevLabel="Back to Skills" prevPath="/skills"
+          nextLabel="View Contact" nextPath="/contact"
+        />
       </div>
 
       {/* Detail specification modal portal */}

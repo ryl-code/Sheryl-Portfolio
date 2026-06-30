@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { GraduationCap, Award, Calendar, BookOpen, Compass, Code, ShieldCheck, Cpu, Briefcase, Sparkles, Terminal } from 'lucide-react';
 import { PERSONAL_INFO } from '../data';
+import PageNavigation from './PageNavigation';
 
 export default function About() {
   const yearsToGo = "2024 - Expected 2027";
@@ -225,6 +226,10 @@ export default function About() {
           </motion.div>
         </motion.div>
 
+        <PageNavigation 
+          prevLabel="Back to Home" prevPath="/" 
+          nextLabel="View Skills" nextPath="/skills" 
+        />
       </div>
     </section>
   );

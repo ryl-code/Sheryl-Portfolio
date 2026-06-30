@@ -40,9 +40,8 @@ export default function Header() {
           : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-3" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex items-center justify-center h-20">
 
           {/* Desktop Cloud Navigation */}
           <nav id="desktop-nav" className="hidden md:flex items-center gap-2">
@@ -65,24 +64,11 @@ export default function Header() {
               );
             })}
             
-            {/* Clean Tech CTA Button */}
-            <Link
-              id="contact-cta-btn"
-              to="/contact"
-              className="relative group ml-4 px-6 h-10 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <div className="absolute inset-0 z-0 bg-slate-900 rounded-lg shadow-sm group-hover:bg-blue-700 transition-colors duration-300">
-                <div className="absolute inset-px rounded-lg bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-              </div>
-              
-              <span className="relative z-10 font-sans font-semibold text-xs tracking-widest uppercase text-white">
-                Download CV
-              </span>
-            </Link>
+
           </nav>
 
           {/* Mobile Menu Toggler */}
-          <div className="md:hidden">
+          <div className="md:hidden absolute right-4 sm:right-6 lg:right-8 top-1/2 -translate-y-1/2">
             <button
               id="mobile-menu-toggle-btn"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -126,24 +112,7 @@ export default function Header() {
                   </Link>
                 );
               })}
-              
-              <div className="pt-2 w-full flex justify-center">
-                <Link
-                  id="mobile-request-cv-btn"
-                  to="/contact"
-                  onClick={handleMobileLinkClick}
-                  className="relative group min-w-[170px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
-                >
-                  <div className="absolute inset-0 z-0 bg-gradient-to-tr from-blue-900 via-blue-800 to-[#1E3A8A] rounded-full shadow-[0_4px_16px_rgba(30,58,138,0.4)] group-hover:shadow-[0_8px_24px_rgba(30,58,138,0.6)] transition-all duration-300">
-                    <div className="absolute inset-0 bg-white/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-px rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
-                  </div>
-                  
-                  <span className="relative z-10 font-sans font-bold tracking-widest text-sm uppercase text-white">
-                    Download CV
-                  </span>
-                </Link>
-              </div>
+
             </div>
           </motion.div>
         )}

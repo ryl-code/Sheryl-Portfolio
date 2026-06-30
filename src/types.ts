@@ -21,6 +21,7 @@ export interface Project {
   imagePlaceholderColor: string; // Tailored placeholder aesthetic
   image?: string; // URL for the actual project screenshot
   githubUrl?: string;
+  link?: string;
 }
 
 export interface ContactMessage {

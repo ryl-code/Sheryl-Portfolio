@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Code, Database, Shield, Wrench, Eye, Info, Brain, Users, Sparkles, Award, CheckCircle2 } from 'lucide-react';
 import { SKILLS, PERSONAL_INFO } from '../data';
 import { Skill } from '../types';
+import PageNavigation from './PageNavigation';
 
 // Custom designed premium SVG logo brand icons for Languages, Databases, Cyber Security and Tools
 const GitLogo = () => (
@@ -404,6 +405,10 @@ export default function Skills() {
           )})}
         </motion.div>
 
+        <PageNavigation 
+          prevLabel="Back to About" prevPath="/about" 
+          nextLabel="View Portfolio" nextPath="/portfolio" 
+        />
       </div>
     </section>
   );

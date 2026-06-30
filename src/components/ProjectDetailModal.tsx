@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, CheckCircle2, ShieldCheck, Database, Layout, User, Award, ExternalLink } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Database, Layout, User, Award, ExternalLink, Github } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectDetailModalProps {
@@ -160,7 +160,7 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
               <>
                 {/* Split description columns */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-5 pb-5 border-b border-slate-200/60">
-                  <div className="md:col-span-8 space-y-4">
+                  <div className={project.category === 'Campus Social' ? "md:col-span-12 space-y-4" : "md:col-span-8 space-y-4"}>
                     <h4 className="font-sans font-extrabold text-[15px] text-[#1E3A8A] tracking-wider uppercase">Project Overview</h4>
                     <p className="text-slate-600 text-[13px] leading-relaxed">
                       {project.description}
@@ -175,32 +175,34 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
                   </div>
 
                   {/* Specifications block */}
-                  <div className="md:col-span-4 bg-white border border-slate-200/60 p-4 rounded-xl space-y-4 shadow-sm">
-                    {project.category !== 'Campus Social' && (
-                      <div>
-                        <span className="block font-sans font-extrabold text-[13px] text-[#1E3A8A] uppercase tracking-wider mb-2">Tech Stack</span>
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.technologies.slice(0, 3).map((tech) => (
-                            <span key={tech} className="text-[11px] font-sans px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-600">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                  {project.category !== 'Campus Social' && (
+                    <div className="md:col-span-4 bg-white border border-slate-200/60 p-4 rounded-xl shadow-sm">
+                      <span className="block font-sans font-extrabold text-[13px] text-[#1E3A8A] uppercase tracking-wider mb-2">Tech Stack</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.technologies.map((tech) => (
+                          <span key={tech} className="text-[11px] font-sans px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-600">
+                            {tech}
+                          </span>
+                        ))}
                       </div>
-                    )}
-
-                    {project.impact && (
-                      <div className="border-t border-slate-100 pt-3.5">
-                        <h4 className="font-sans font-extrabold text-[13px] text-[#1E3A8A] uppercase tracking-wider mb-1.5">
-                          Project Outcome
-                        </h4>
-                        <p className="text-[11px] text-slate-600 leading-normal font-sans font-medium">
-                          {project.impact}
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
+
+                {/* Project Outcome Prominently Displayed */}
+                {project.impact && (
+                  <div className="pb-5 border-b border-slate-200/60">
+                    <div className="bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border border-blue-100/60 rounded-xl p-5 shadow-sm">
+                      <h4 className="font-sans font-extrabold text-[15px] text-[#1E3A8A] tracking-wider uppercase mb-2 flex items-center gap-2">
+                        <Award className="w-5 h-5 text-blue-600" />
+                        Project Outcome
+                      </h4>
+                      <p className="text-slate-700 text-[13.5px] leading-relaxed font-medium">
+                        {project.impact}
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Core Features list */}
                 <div className="space-y-4 pb-2">
@@ -227,14 +229,30 @@ export default function ProjectDetailModal({ project, onClose }: ProjectDetailMo
           {/* Modal Footer actions */}
           <div className="bg-slate-50/80 border-t border-slate-200/60 px-5 sm:px-6 py-4 flex flex-col sm:flex-row gap-4 items-center justify-end">
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              <button
-                id="modal-request-source"
-                onClick={onClose}
-                className="w-full sm:w-auto px-4.5 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-blue-900 text-white font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
-              >
-                <span>Code Available on Request</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </button>
+              {project.category === 'IT Development' && (
+                <a
+                  id="modal-request-source"
+                  href={project.githubUrl || "https://github.com/ryl-code"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-4.5 py-2.5 rounded-xl bg-[#24292e] hover:bg-[#1b1f23] text-white font-semibold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>View on GitHub</span>
+                </a>
+              )}
+              {project.category === 'Achievement' && (
+                <a
+                  id="modal-write-up"
+                  href={project.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-4.5 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-blue-900 text-white font-semibold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+                >
+                  <span>Write Up</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
               <button
                 id="modal-exit"
                 onClick={onClose}

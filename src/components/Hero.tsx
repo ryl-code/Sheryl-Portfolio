@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Shield, ArrowRight, UserCheck, Code, Database, Terminal, Cpu, Globe, Cloud } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PERSONAL_INFO } from '../data';
+import PageNavigation from './PageNavigation';
 
 export default function Hero() {
   const navigate = useNavigate();
   const [photoIndex, setPhotoIndex] = useState(0);
   const PROFILE_PHOTOS = ['/profile.jpg', '/photo1.png', '/photo2.jpeg'];
-  
+
   const handlePhotoClick = () => {
     setPhotoIndex((prev) => (prev + 1) % PROFILE_PHOTOS.length);
   };
@@ -134,9 +135,9 @@ export default function Hero() {
                     <motion.span
                       key={idx}
                       initial={{ opacity: 0, y: 50, rotate: -15, scale: 0.5 }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0, 
+                      animate={{
+                        opacity: 1,
+                        y: 0,
                         rotate: 0,
                         scale: 1
                       }}
@@ -147,11 +148,11 @@ export default function Hero() {
                         color: "#3b82f6", // tailwind blue-500
                         transition: { duration: 0.2, type: "spring", stiffness: 300 }
                       }}
-                      transition={{ 
-                        duration: 0.7, 
-                        delay: 0.3 + idx * 0.06, 
-                        type: 'spring', 
-                        bounce: 0.5 
+                      transition={{
+                        duration: 0.7,
+                        delay: 0.3 + idx * 0.06,
+                        type: 'spring',
+                        bounce: 0.5
                       }}
                       className="inline-block cursor-default"
                     >
@@ -178,45 +179,37 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.5 }}
               className="flex flex-wrap gap-4 mb-10 w-full sm:w-auto"
             >
-              <button
-                id="hero-view-portfolio"
-                onClick={() => handleNavigation('/portfolio')}
+              <a
+                id="hero-download-cv"
+                href="/Sheryl%20Sharon's%20CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-blue-900/20 flex items-center justify-center gap-2 group cursor-pointer active:scale-[0.98]"
               >
-                <span>View Portfolio</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
-
-              <button
-                id="hero-contact-me"
-                onClick={() => handleNavigation('/contact')}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-200 shadow-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
-              >
-                <UserCheck className="w-4 h-4 text-blue-900" />
-                <span>Contact Me</span>
-              </button>
+                <span>Download CV</span>
+              </a>
             </motion.div>
 
 
           </div>
 
           {/* Profile Photo Placeholder Graphic / Mockup */}
-          <div className="md:col-span-5 flex justify-center items-center relative mt-10 md:mt-0">
+          <div className="md:col-span-5 flex flex-col justify-center items-center relative mt-10 md:mt-0">
             <motion.div
               initial={{ opacity: 0, scale: 0.2, rotateY: -180, rotateZ: 45, y: 150 }}
               animate={{ opacity: 1, scale: 1, rotateY: 0, rotateZ: 0, y: 0 }}
-              transition={{ 
-                duration: 1.8, 
-                type: "spring", 
-                bounce: 0.6, 
-                delay: 0.2 
+              transition={{
+                duration: 1.8,
+                type: "spring",
+                bounce: 0.6,
+                delay: 0.2
               }}
               className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 group/avatar"
               style={{ perspective: 1000 }}
             >
               {/* High-Tech Orbital Rings Container */}
               <div className="absolute -inset-10 md:-inset-14 rounded-full pointer-events-none">
-                
+
                 {/* Outer Ring - Dashed */}
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -242,9 +235,9 @@ export default function Hero() {
                 />
 
                 {/* Orbiting Satellites (Icons) - Unified Orderly Ring */}
-                <motion.div 
-                  animate={{ rotate: 360 }} 
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }} 
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                   className="absolute inset-0"
                 >
                   {/* Icon 1: 0 degrees */}
@@ -305,7 +298,7 @@ export default function Hero() {
                 />
 
                 {/* Photo Box container with click animation */}
-                <motion.div 
+                <motion.div
                   onClick={handlePhotoClick}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.92 }}
@@ -330,6 +323,19 @@ export default function Hero() {
                   </div>
                 </motion.div>
               </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="mt-16 sm:mt-24 w-full flex justify-center"
+            >
+              <PageNavigation
+                nextLabel="View More About Me"
+                nextPath="/about"
+                className="justify-center w-auto"
+              />
             </motion.div>
           </div>
 

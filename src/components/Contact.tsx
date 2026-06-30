@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Mail, Linkedin, Github, Instagram, Check, Copy, ExternalLink, Shield, MessageCircle, Send, AtSign } from 'lucide-react';
 import { PERSONAL_INFO } from '../data';
+import PageNavigation from './PageNavigation';
 
 export default function Contact() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -280,6 +281,9 @@ export default function Contact() {
 
         </motion.div>
 
+        <PageNavigation 
+          prevLabel="Back to Portfolio" prevPath="/portfolio" 
+        />
       </div>
     </section>
   );
