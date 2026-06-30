@@ -8,16 +8,8 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import IntroScreen from './components/IntroScreen';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Terminal, Shield, Fingerprint, Code2, Cpu, Globe, Lock, Database, Server, Wifi, Command, Hash, Activity, Key, Code, Laptop } from 'lucide-react';
-const SectionDivider = () => (
-  <div className="w-full flex items-center justify-center opacity-60 py-8">
-    <div className="w-1/3 max-w-xs h-[1px] bg-gradient-to-r from-transparent to-slate-300" />
-    <div className="mx-4 w-2 h-2 bg-blue-500/80 rotate-45 rounded-[1px] shadow-[0_0_8px_rgba(59,130,246,0.4)]" />
-    <div className="w-1/3 max-w-xs h-[1px] bg-gradient-to-l from-transparent to-slate-300" />
-  </div>
-);
-
-
 
 const ScrollDecorations = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden hidden xl:block z-0">
@@ -51,34 +43,12 @@ const ScrollDecorations = () => (
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
-  const [activeSection, setActiveSection] = useState('home');
+  const location = useLocation();
 
+  // Reset scroll position on route change
   useEffect(() => {
-    if (showIntro) return;
-
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'portfolio', 'contact'];
-      
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // The line of sight is 250px from the top of the viewport
-          if (rect.top <= 250 && rect.bottom > 250) {
-            setActiveSection(id);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Trigger once on mount
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [showIntro]);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <AnimatePresence mode="wait">
@@ -91,7 +61,7 @@ export default function App() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
           id="portfolio-root"
-          className="min-h-screen bg-slate-50 text-slate-800 flex flex-col selection:bg-blue-900/20 selection:text-blue-950"
+          className="min-h-screen w-full overflow-x-hidden bg-slate-50 text-slate-800 flex flex-col selection:bg-blue-900/20 selection:text-blue-950"
         >
           {/* Watercolor Cloud Background */}
           <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-slate-50">
@@ -112,20 +82,28 @@ export default function App() {
             />
           </div>
 
-          {/* Structured Single-Screen Sections */}
-          <Header activeSection={activeSection} />
+          {/* Header has its own active section logic now */}
+          <Header />
 
           <main id="portfolio-main-content" className="relative z-10 flex-grow">
             <ScrollDecorations />
-            <Hero />
-            <SectionDivider />
-            <About />
-            <SectionDivider />
-            <Skills />
-            <SectionDivider />
-            <Portfolio />
-            <SectionDivider />
-            <Contact />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Routes location={location}>
+                  <Route path="/" element={<Hero />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/skills" element={<Skills />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
           </main>
 
           <Footer />

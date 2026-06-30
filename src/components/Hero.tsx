@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, ArrowRight, UserCheck, Code, Database, Terminal, Cpu, Globe, Cloud } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { PERSONAL_INFO } from '../data';
 
 export default function Hero() {
+  const navigate = useNavigate();
   const [photoIndex, setPhotoIndex] = useState(0);
   const PROFILE_PHOTOS = ['/profile.jpg', '/photo1.png', '/photo2.jpeg'];
   
@@ -11,17 +13,8 @@ export default function Hero() {
     setPhotoIndex((prev) => (prev + 1) % PROFILE_PHOTOS.length);
   };
 
-  const handleScrollTo = (id: string) => {
-    const target = document.querySelector(id);
-    if (target) {
-      const headerOffset = 85;
-      const elementPosition = target.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleNavigation = (path: string) => {
+    navigate(path);
   };
 
 
@@ -187,7 +180,7 @@ export default function Hero() {
             >
               <button
                 id="hero-view-portfolio"
-                onClick={() => handleScrollTo('#portfolio')}
+                onClick={() => handleNavigation('/portfolio')}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-blue-900 hover:bg-blue-950 text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-blue-900/20 flex items-center justify-center gap-2 group cursor-pointer active:scale-[0.98]"
               >
                 <span>View Portfolio</span>
@@ -196,7 +189,7 @@ export default function Hero() {
 
               <button
                 id="hero-contact-me"
-                onClick={() => handleScrollTo('#contact')}
+                onClick={() => handleNavigation('/contact')}
                 className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-slate-200 shadow-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
               >
                 <UserCheck className="w-4 h-4 text-blue-900" />

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-
-interface HeaderProps {
-  activeSection: string;
-}
+import { Link, useLocation } from 'react-router-dom';
 
 // Replaced CloudBackground with modern geometric glow effects inline.
 
-export default function Header({ activeSection }: HeaderProps) {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -21,26 +18,16 @@ export default function Header({ activeSection }: HeaderProps) {
   }, []);
 
   const navItems = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Skills', path: '/skills' },
+    { label: 'Portfolio', path: '/portfolio' },
+    { label: 'Contact', path: '/contact' }
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      const headerOffset = 80;
-      const elementPosition = target.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+  const location = useLocation();
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const handleMobileLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
 
@@ -60,13 +47,12 @@ export default function Header({ activeSection }: HeaderProps) {
           {/* Desktop Cloud Navigation */}
           <nav id="desktop-nav" className="hidden md:flex items-center gap-2">
             {navItems.map((item) => {
-              const isActive = activeSection === item.href.slice(1);
+              const isActive = location.pathname === item.path;
               return (
-                <a
-                  key={item.href}
+                <Link
+                  key={item.path}
                   id={`nav-link-${item.label.toLowerCase()}`}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
+                  to={item.path}
                   className="relative group min-w-[95px] h-11 flex items-center justify-center transition-all duration-200"
                 >
                   <div className={`absolute inset-0 rounded-lg transition-all duration-300 scale-95 ${isActive ? 'bg-blue-100/60 shadow-[0_2px_10px_rgba(30,58,138,0.08)] ring-1 ring-blue-200/50' : 'opacity-0 group-hover:opacity-100 group-hover:bg-slate-100/80 group-hover:scale-100'}`} />
@@ -75,15 +61,14 @@ export default function Header({ activeSection }: HeaderProps) {
                   }`}>
                     {item.label}
                   </span>
-                </a>
+                </Link>
               );
             })}
             
             {/* Clean Tech CTA Button */}
-            <a
+            <Link
               id="contact-cta-btn"
-              href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
+              to="/contact"
               className="relative group ml-4 px-6 h-10 flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               <div className="absolute inset-0 z-0 bg-slate-900 rounded-lg shadow-sm group-hover:bg-blue-700 transition-colors duration-300">
@@ -93,7 +78,7 @@ export default function Header({ activeSection }: HeaderProps) {
               <span className="relative z-10 font-sans font-semibold text-xs tracking-widest uppercase text-white">
                 Download CV
               </span>
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Menu Toggler */}
@@ -123,13 +108,13 @@ export default function Header({ activeSection }: HeaderProps) {
           >
             <div className="px-6 py-6 space-y-4 flex flex-col items-center">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.slice(1);
+                const isActive = location.pathname === item.path;
                 return (
-                  <a
-                    key={item.href}
+                  <Link
+                    key={item.path}
                     id={`mobile-nav-link-${item.label.toLowerCase()}`}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
+                    to={item.path}
+                    onClick={handleMobileLinkClick}
                     className="relative group min-w-[120px] h-11 flex items-center justify-center transition-all duration-200"
                   >
                     <div className={`absolute inset-0 rounded-lg transition-all duration-300 scale-95 ${isActive ? 'bg-blue-100/60 shadow-[0_2px_10px_rgba(30,58,138,0.08)] ring-1 ring-blue-200/50' : 'opacity-0 group-hover:opacity-100 group-hover:bg-slate-100 group-hover:scale-100'}`} />
@@ -138,15 +123,15 @@ export default function Header({ activeSection }: HeaderProps) {
                     }`}>
                       {item.label}
                     </span>
-                  </a>
+                  </Link>
                 );
               })}
               
               <div className="pt-2 w-full flex justify-center">
-                <a
+                <Link
                   id="mobile-request-cv-btn"
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, '#contact')}
+                  to="/contact"
+                  onClick={handleMobileLinkClick}
                   className="relative group min-w-[170px] h-[60px] flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
                 >
                   <div className="absolute inset-0 z-0 bg-gradient-to-tr from-blue-900 via-blue-800 to-[#1E3A8A] rounded-full shadow-[0_4px_16px_rgba(30,58,138,0.4)] group-hover:shadow-[0_8px_24px_rgba(30,58,138,0.6)] transition-all duration-300">
@@ -154,10 +139,10 @@ export default function Header({ activeSection }: HeaderProps) {
                     <div className="absolute inset-px rounded-full bg-gradient-to-b from-white/20 to-transparent pointer-events-none" />
                   </div>
                   
-                  <span className="relative z-10 font-sans font-bold uppercase text-sm tracking-widest text-white mt-1">
+                  <span className="relative z-10 font-sans font-bold tracking-widest text-sm uppercase text-white">
                     Download CV
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

@@ -40,7 +40,7 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="min-h-screen flex flex-col justify-center py-24 relative overflow-hidden bg-transparent"
+      className="min-h-screen flex flex-col justify-start pt-32 pb-24 relative overflow-hidden bg-transparent"
     >
       {/* Decorative Section Divider */}
       <div className="absolute top-0 inset-x-0 flex justify-center items-start">
@@ -230,7 +230,7 @@ export default function Portfolio() {
 
         {/* Portfolio Projects Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto pb-12"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (

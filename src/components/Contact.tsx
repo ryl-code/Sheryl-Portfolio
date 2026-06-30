@@ -15,7 +15,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="min-h-screen flex flex-col justify-center py-24 relative overflow-hidden bg-transparent"
+      className="min-h-screen flex flex-col justify-start pt-32 pb-24 relative overflow-hidden bg-transparent"
     >
       {/* Decorative Section Divider */}
       <div className="absolute top-0 inset-x-0 flex justify-center items-start">
